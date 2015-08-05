@@ -28,7 +28,7 @@ In scripts that get executed several times in the same workspace use following c
 ```matlab
 if not(exist('java_classpath_set'))
     javaaddpath('ca_matlab-1.0.0.jar')
-    java_classpath_set=1
+    java_classpath_set = 1;
 end
 ```
 
@@ -60,12 +60,12 @@ After loading the required jar channels can be created and be read/written as fo
 
 ```Matlab
 import ch.psi.jcae.*
-context = Context()
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'))
+context = Context();
+channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
 channel.get()
-channel.put(10.1)
-channel.close()
-context.close()
+channel.put(10.1);
+channel.close();
+context.close();
 ```
 
 ## Context
@@ -73,17 +73,17 @@ Before being able to create channels there need to be a context. For normal setu
 
 ```Matlab
 import ch.psi.jcae.*
-context = Context()
+context = Context();
 ```
 
 If needed (i.e. to set the EPICS_CA_ADDR_LIST or EPICS_CA_MAX_ARRAY_BYTES) the context can be configured via properties.
 
 ```Matlab
 import ch.psi.jcae.*
-properties = java.lang.Properties()
+properties = java.util.Properties();
 properties.setProperty('EPICS_CA_ADDR_LIST', '10.0.0.255');
 
-context = Context(properties)
+context = Context(properties);
 ```
 
 Currently following properties are supported:
@@ -102,7 +102,7 @@ __Note:__ For Paul Scherrer Institute users there is a list of example configura
 The context need to be closed at the end of the application via
 
 ```Matlab
-context.close()
+context.close();
 ```
 
 ## Channel
@@ -112,16 +112,16 @@ Here are some examples on how to create channels:
 
 ```Matlab
 % Create double channel
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'))
+channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
 % Create monitored double channel
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT', true))
+channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT', true));
 
 
 % Create a channel for a double waveform/array - the size will be determined by the channel
-channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true))
+channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true));
 % Create a channel for a double waveform/array of specific size 10
 % If the actual channel array is bigger you specify you would only retrieve the first 10 elements
-channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true, java.lang.Integer(10)))
+channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true, java.lang.Integer(10)));
 ```
 
 Supported types are: `double`, `integer`, `short`, `float`, `byte`, `boolean`, `string` and the respective array forms `double[]`, `integer[]`, `int[]`, `short[]`, `float[]`, `byte[]`, `boolean[]`, `string[]` .
@@ -136,9 +136,9 @@ __Note__: A polling loop within your Matlab application on a channel created wit
 To put a value in a fire and forget style use `putNoWait(value)`. This method will put the value change request on the network but does not wait for any kind of acknowledgement.
 
 ```Matlab
-channel.get()
-channel.put(10.0)
-channel.putNoWait(10.0)
+value = channel.get();
+channel.put(10.0);
+channel.putNoWait(10.0);
 ```
 
 Beside the synchronous (i.e. blocking until the operation is done) versions of `get()` and `put(value)` there are also asynchronous calls. They are named `getAsync()` and `putAsync(value)`. Both functions immediately return with a handle for the operation, i.e. a so called Future. The Future can be used to wait at any location in the script to wait for the completion of the operation and retrieve the final value of the channel.
@@ -146,49 +146,49 @@ Beside the synchronous (i.e. blocking until the operation is done) versions of `
 Example asynchronous get:
 
 ```Matlab
-future = channel.getAsync()
-future_2 = channel_2.getAsync()
+future = channel.getAsync();
+future_2 = channel_2.getAsync();
 
 % do something different ...
-do_something()
+do_something();
 % ... or simply sleep ...
-pause(10)
+pause(10);
 % ... or simply do nothing ...
 
-value_channel = future.get()
-value_channel_2 = future_2.get()
+value_channel = future.get();
+value_channel_2 = future_2.get();
 ```
 
 Example asynchronous put:
 
 ```Matlab
-future = channel.putAsync(value_1) % this could, for example start some move of a motor ...
-future_2 = channel_2.putAsync(value_2)
+future = channel.putAsync(value_1); % this could, for example start some move of a motor ...
+future_2 = channel_2.putAsync(value_2);
 
 % do something different ...
-do_something()
+do_something();
 % ... or simply sleep ...
-pause(10)
+pause(10);
 % ... or simply do nothing ...
 
-future.get() % this will return the set value, i.e. value_1
-future_2.get() % this will return the set value, i.e. value_2
+future.get(); % this will return the set value, i.e. value_1
+future_2.get(); % this will return the set value, i.e. value_2
 ```
 
 Waiting for channels to reach a certain value can be done as follows:
 
 ```matlab
 // Wait without timeout (i.e. forever)
-channel.waitForValue('world')
+channel.waitForValue('world');
 
 // Wait with timeout
-waitHandle = channel.waitForValueAsync('world').get(Long(10), java.util.concurrent.TimeUnit.SECONDS)
+waitHandle = channel.waitForValueAsync('world').get(Long(10), java.util.concurrent.TimeUnit.SECONDS);
 ```
 
 If you want to do stuff while waiting you can implement a busy loop like this:
 
 ```matlab
-waitfuture = channel.waitForValueAsync('world')
+waitfuture = channel.waitForValueAsync('world');
 while not(waitfuture.isDone())
     % do something
 end
@@ -198,7 +198,7 @@ end
 After you are done working with a channel close the channel via
 
 ```Matlab
-channel.close()
+channel.close();
 ```
 
 # Examples
