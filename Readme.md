@@ -1,6 +1,6 @@
 # Overview
 The __ca_matlab__ package provides an easy to use Channel Access library for Matlab.
-This document describes how to interface Epics via Channel Access within Matlab. The
+This document describes how to use the package within Matlab.
 
 The latest released of this package can be downloaded [here](https://github.com/channelaccess/ca_matlab/releases).
 
@@ -17,9 +17,9 @@ If you are unsure which one to use, we strongly suggest to use the dynamic appro
 
 ## Dynamic
 
-To get started with the library just copy the downloaded jar into the folder holding your Matlab code file. At the top of your .m file just add following line:
+To get started with the library just copy the downloaded jar into the folder holding your Matlab code file. At the top of your .m file just add following line (remember to change the version to the actual one):
 
-```
+```matlab
 javaaddpath('ca_matlab-1.0.0.jar')
 ```
 
@@ -48,7 +48,7 @@ To be able to use the package, include the _full qualified path_ of the jar in t
 /Users/ebner/Documents/MATLAB/ca_matlab-1.0.0.jar
 ```
 
-After creating/altering the file(s) *javaclasspath.txt* you need to restart Matlab.
+After creating/altering the file *javaclasspath.txt* you need to restart Matlab.
 
 
 
@@ -56,13 +56,14 @@ After creating/altering the file(s) *javaclasspath.txt* you need to restart Matl
 
 ## Quick Start
 
-After loading the required jar (see Overview above) channels can be created and be read/written as follows:
+After loading the required jar channels can be created and be read/written as follows:
 
 ```Matlab
 import ch.psi.jcae.*
 context = Context()
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'))
+channel = context.createChannel(ChannelDescriptor('double', 'YOUR-CHANNEL'))
 channel.get()
+channel.put(10.1)
 channel.close()
 context.close()
 ```
@@ -80,7 +81,7 @@ If needed (i.e. to set the EPICS_CA_ADDR_LIST or EPICS_CA_MAX_ARRAY_BYTES) the c
 ```Matlab
 import ch.psi.jcae.*
 properties = java.lang.Properties()
-properties.setProperty("EPICS_CA_ADDR_LIST", "10.0.0.255");
+properties.setProperty('EPICS_CA_ADDR_LIST', '10.0.0.255');
 
 context = Context(properties)
 ```
@@ -89,12 +90,12 @@ Currently following properties are supported:
 
 |Name|Description|
 |----|----|
-|EPICS_CA_ADDR_LIST||
-|EPICS_CA_AUTO_ADDR_LIS||
-|EPICS_CA_SERVER_PORT||
-|EPICS_CA_MAX_ARRAY_BYTES||
+|EPICS_CA_ADDR_LIST|Address list to search channel on|
+|EPICS_CA_AUTO_ADDR_LIST|Automatically create address list|
+|EPICS_CA_SERVER_PORT|Port of the channel access server|
+|EPICS_CA_MAX_ARRAY_BYTES|Maximum number of bytes for an array/waveform|
 
-_Note:_ For Paul Scherrer Institute users there is a list of example configurations for accessing the different facilities in [Environments.md](Environments.md).
+__Note:__ For Paul Scherrer Institute users there is a list of example configurations for accessing the different facilities in [Environments.md](Environments.md).
 
 
 
@@ -125,10 +126,12 @@ channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT
 
 Supported types are: `double`, `integer`, `short`, `float`, `byte`, `boolean`, `string` and the respective array forms `double[]`, `integer[]`, `int[]`, `short[]`, `float[]`, `byte[]`, `boolean[]`, `string[]` .
 
-After creating a channel you are able to get and put values via the `get()` and `put(value)` methods. _Note_, if you created a channel with the monitored flag set true `get()` will not reach for the network to get the latest value of the channel but returns the latest update by a channel monitor.
+After creating a channel you are able to get and put values via the `get()` and `put(value)` methods.
+
+__Note__: If you created a channel with the monitored flag set true `get()` will not reach for the network to get the latest value of the channel but returns the latest update by a channel monitor.
 If you require to explicitly fetch the value over the network use `get(true)` (this should only be rare cases as most of the time its enough to get the cached value)
 
-_Note_, a polling loop within your Matlab application on a channel created with the monitored flag set *true* is perfectly fine and does not induce any load on the network.
+__Note__: A polling loop within your Matlab application on a channel created with the monitored flag set *true* is perfectly fine and does not induce any load on the network.
 
 To put a value in a fire and forget style use `putNoWait(value)`. This method will put the value change request on the network but does not wait for any kind of acknowledgement.
 
