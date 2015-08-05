@@ -14,7 +14,7 @@ dependencies {
 	compile 'ch.psi:jcae:2.8.0'
 }
 
-task fatJar(type: Jar) {
+task build(type: Jar) {
     baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar

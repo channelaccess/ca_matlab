@@ -206,3 +206,13 @@ Examples can be found in the [examples](examples) folder within this repository.
 
 # Feedback
 We very much appreciate your feedback! Please drop an [issue](issues) for any bug or improvement you see for this library!
+
+# Development
+This package is currently based on the [jcae](https://github.com/paulscherrerinstitute/jcae/) library developed at PSI. Basically it is a repackaging of the library together with its dependencies.
+Currently building this package is only possible within PSI.
+
+To build the package use:
+
+```bash
+./gradlew build
+```
