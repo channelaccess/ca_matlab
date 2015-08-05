@@ -209,6 +209,7 @@ We very much appreciate your feedback! Please drop an [issue](issues) for any bu
 
 # Development
 This package is currently based on the [jcae](https://github.com/paulscherrerinstitute/jcae/) library developed at PSI. Basically it is a repackaging of the library together with its dependencies.
+
 Currently building this package is only possible within PSI.
 
 To build the package use:
@@ -216,3 +217,4 @@ To build the package use:
 ```bash
 ./gradlew build
 ```
+__Note__: As soon as Matlab is based on an Java 8 SDK the backing library will be switched from [jcae](https://github.com/paulscherrerinstitute/jcae) to [ca](https://github.com/channelaccess/ca) which is a more modern and clean Java library for Channel Access.
