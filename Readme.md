@@ -61,7 +61,7 @@ After loading the required jar channels can be created and be read/written as fo
 ```Matlab
 import ch.psi.jcae.*
 context = Context()
-channel = context.createChannel(ChannelDescriptor('double', 'YOUR-CHANNEL'))
+channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'))
 channel.get()
 channel.put(10.1)
 channel.close()
@@ -200,3 +200,6 @@ After you are done working with a channel close the channel via
 ```Matlab
 channel.close()
 ```
+
+# Examples
+Examples can be found in the [https://github.com/channelaccess/ca_matlab/blob/master/examples](examples) folder within this repository.
