@@ -171,8 +171,8 @@ do_something();
 pause(10);
 % ... or simply do nothing ...
 
-future.get(); % this will return the set value, i.e. value_1
-future_2.get(); % this will return the set value, i.e. value_2
+future.get();
+future_2.get();
 ```
 
 Waiting for channels to reach a certain value can be done as follows:
@@ -182,7 +182,7 @@ Waiting for channels to reach a certain value can be done as follows:
 channel.waitForValue('world');
 
 // Wait with timeout
-waitHandle = channel.waitForValueAsync('world').get(Long(10), java.util.concurrent.TimeUnit.SECONDS);
+waitHandle = channel.waitForValueAsync('world').get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
 ```
 
 If you want to do stuff while waiting you can implement a busy loop like this:
@@ -217,4 +217,4 @@ To build the package use:
 ```bash
 ./gradlew build
 ```
-__Note__: As soon as Matlab is based on an Java 8 SDK the backing library will be switched from [jcae](https://github.com/paulscherrerinstitute/jcae) to [ca](https://github.com/channelaccess/ca) which is a more modern and clean Java library for Channel Access.
+__Note__: As soon as Matlab is based on an Java 8 SDK the backing library will be switched from [jcae](https://github.com/paulscherrerinstitute/jcae) to [ca](https://github.com/channelaccess/ca), which is a more modern and clean Java library for Channel Access.
