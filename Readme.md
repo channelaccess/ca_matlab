@@ -201,5 +201,8 @@ After you are done working with a channel close the channel via
 channel.close();
 ```
 
-# Examples
-Examples can be found in the [https://github.com/channelaccess/ca_matlab/blob/master/examples](examples) folder within this repository.
+## Examples
+Examples can be found in the [examples](examples) folder within this repository.
+
+# Feedback
+We very much appreciate your feedback! Please drop an [issue](issues) for any bug or improvement you see for this library!
