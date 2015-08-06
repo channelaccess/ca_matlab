@@ -16,7 +16,7 @@ properties.setProperty('EPICS_CA_ADDR_LIST', 'sls-cagw');
 properties.setProperty('EPICS_CA_SERVER_PORT', '5062');
 
 context = Context(properties);
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
+channel = Channels.create(context, ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
 
 channel.get()
 

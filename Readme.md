@@ -61,7 +61,7 @@ After loading the required jar channels can be created and be read/written as fo
 ```Matlab
 import ch.psi.jcae.*
 context = Context();
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
+channel = Channels.create(context, ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
 channel.get()
 channel.put(10.1);
 channel.close();
@@ -112,16 +112,16 @@ Here are some examples on how to create channels:
 
 ```Matlab
 % Create double channel
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
+channel = Channels.create(context, ChannelDescriptor('double', 'ARIDI-PCT:CURRENT'));
 % Create monitored double channel
-channel = context.createChannel(ChannelDescriptor('double', 'ARIDI-PCT:CURRENT', true));
+channel = Channels.create(context, ChannelDescriptor('double', 'ARIDI-PCT:CURRENT', true));
 
 
 % Create a channel for a double waveform/array - the size will be determined by the channel
-channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true));
+channel = Channels.create(context, ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true));
 % Create a channel for a double waveform/array of specific size 10
 % If the actual channel array is bigger you specify you would only retrieve the first 10 elements
-channel = context.createChannel(ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true, java.lang.Integer(10)));
+channel = Channels.create(context, ChannelDescriptor('double[]', 'ARIDI-PCT:CURRENT', true, java.lang.Integer(10)));
 ```
 
 Supported types are: `double`, `integer`, `short`, `float`, `byte`, `boolean`, `string` and the respective array forms `double[]`, `integer[]`, `int[]`, `short[]`, `float[]`, `byte[]`, `boolean[]`, `string[]` .
@@ -179,16 +179,16 @@ Waiting for channels to reach a certain value can be done as follows:
 
 ```matlab
 // Wait without timeout (i.e. forever)
-channel.waitForValue('world');
+Channels.waitForValue(channel, 'world');
 
 // Wait with timeout
-waitHandle = channel.waitForValueAsync('world').get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
+waitHandle = Channels.waitForValueAsync(channel, 'world').get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
 ```
 
 If you want to do stuff while waiting you can implement a busy loop like this:
 
 ```matlab
-waitfuture = channel.waitForValueAsync('world');
+waitfuture = Channels.waitForValueAsync(channel, 'world');
 while not(waitfuture.isDone())
     % do something
 end
