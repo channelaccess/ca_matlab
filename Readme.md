@@ -2,28 +2,29 @@
 The __ca_matlab__ package provides an easy to use Channel Access library for Matlab.
 This document describes how to use the package within Matlab.
 
-The latest released of this package can be downloaded [here](https://github.com/channelaccess/ca_matlab/releases).
+The latest release of this package can be downloaded [here](https://github.com/channelaccess/ca_matlab/releases).
 
-The *prerequisites* for this package is *Matlab2015a* or later. There are absolutely no other dependencies beside that (just include the Jar as described below).
+The *prerequisites* for this package is *Matlab2015a* or later. There are no other dependencies beside that (just include the Jar as described below).
 
 
 # Configuration
 
-To be able to use the library you have two options, a dynamic and a static one. The difference between the two options is that
-with dynamic you will *bundle* the library with your Matlab code, with the static one you will set the library one time globally
-for your Matlab instance.
+There are two options to use the library, a dynamic and a static one. With the dynamic option you will *bundle* the library with your Matlab code whereas with the static option you will set the library one time globally for your Matlab instance.
 
-If you are unsure which one to use, we strongly suggest to use the dynamic approach!
+We strongly suggest to use the dynamic approach!
 
 ## Dynamic
 
-To get started with the library just copy the downloaded jar into the folder holding your Matlab code file. At the top of your .m file just add following line (remember to change the version to the actual one):
+To get started with the library:
+* Copy the downloaded jar into the folder holding your Matlab code file.
+* At the top of your .m file add following line (remember to change the version to the actual one).
 
 ```matlab
 javaaddpath('ca_matlab-1.0.0.jar')
 ```
 
-In scripts that get executed several times in the same workspace use following construct to get rid of the Matlab warnings regarding re-adding to the classpath:
+In scripts that get executed several times in the same workspace:
+* Use following construct to get rid of the Matlab warnings regarding re-adding to the classpath.
 
 ```matlab
 if not(exist('java_classpath_set'))
@@ -32,17 +33,17 @@ if not(exist('java_classpath_set'))
 end
 ```
 
-In more complex Matlab projects you might not want to have the library in the same place as your matlab files but on a sub/parent-folder. In this case use relative paths to refer to the library.
+In more complex Matlab projects you might want to have the library in a sub/parent-folder. In this case use relative paths to refer to the library.
 
 ```matlab
 javaaddpath('../ca_matlab-1.0.0.jar')
 ```
 
-For Windows users, keep in mind to use backslashes in the path `\` !
+For Windows users, keep in mind to use backslashes ( __\__ ) !
 
 
 ## Static
-To be able to use the package, include the _full qualified path_ of the jar in the *javaclasspath.txt* within the Matlab home folder (ideally also copy the jar into this directory). For example:
+Include the _full qualified path_ of the jar in the *javaclasspath.txt* within the Matlab home folder (ideally also copy the jar into this directory). For example:
 
 ```
 /Users/ebner/Documents/MATLAB/ca_matlab-1.0.0.jar
@@ -56,7 +57,7 @@ After creating/altering the file *javaclasspath.txt* you need to restart Matlab.
 
 ## Quick Start
 
-After loading the required jar channels can be created and be read/written as follows:
+After loading the required jar, channels can be created and be read/written as follows:
 
 ```Matlab
 import ch.psi.jcae.*
@@ -69,14 +70,14 @@ context.close();
 ```
 
 ## Context
-Before being able to create channels there need to be a context. For normal setups, ideally there should be only one context per Matlab application.
+A context is necessary to create channels. Ideally, there should be one context per Matlab application only.
 
 ```Matlab
 import ch.psi.jcae.*
 context = Context();
 ```
 
-If needed (i.e. to set the EPICS_CA_ADDR_LIST or EPICS_CA_MAX_ARRAY_BYTES) the context can be configured via properties.
+It is also possible to configure the context via properties (i.e. to set the EPICS_CA_ADDR_LIST or EPICS_CA_MAX_ARRAY_BYTES).
 
 ```Matlab
 import ch.psi.jcae.*
@@ -99,14 +100,14 @@ __Note:__ For Paul Scherrer Institute users there is a list of example configura
 
 
 
-The context need to be closed at the end of the application via
+The context needs to be closed at the end of the application via
 
 ```Matlab
 context.close();
 ```
 
 ## Channel
-To create a channel use the createChannel function of the context. The functions argument is a so called ChannelDescriptor which describes the desired channel, i.e. name, type, monitored (whether the channel object should be constantly monitoring the channel) as well as size (in case of array).
+To create a channel use the create function of the Channels utility class. The function's argument is a so called ChannelDescriptor which describes the desired channel, i.e. name, type, monitored (whether the channel object should be constantly monitoring the channel) as well as size (in case of array).
 
 Here are some examples on how to create channels:
 
@@ -128,12 +129,12 @@ Supported types are: `double`, `integer`, `short`, `float`, `byte`, `boolean`, `
 
 After creating a channel you are able to get and put values via the `get()` and `put(value)` methods.
 
-__Note__: If you created a channel with the monitored flag set true `get()` will not reach for the network to get the latest value of the channel but returns the latest update by a channel monitor.
-If you require to explicitly fetch the value over the network use `get(true)` (this should only be rare cases as most of the time its enough to get the cached value)
+__Note__: If you created a channel with the monitored flag set to *true*, `get()` does not access the network to get the latest value of the channel but returns the latest update by a channel monitor.
+If you require to explicitly fetch the value over the network use `get(true)` (this should be rarely used as most of the time its enough to get the cached value)
 
-__Note__: A polling loop within your Matlab application on a channel created with the monitored flag set *true* is perfectly fine and does not induce any load on the network.
+__Note__: A polling loop within your Matlab application on a channel created with the monitored flag set to *true* is perfectly fine as it does not induce any load on the network.
 
-To put a value in a fire and forget style use `putNoWait(value)`. This method will put the value change request on the network but does not wait for any kind of acknowledgement.
+To put a value in a fire and forget style use `putNoWait(value)`. This method will put the change request on the network but does not wait for any kind of acknowledgement.
 
 ```Matlab
 value = channel.get();
@@ -141,7 +142,7 @@ channel.put(10.0);
 channel.putNoWait(10.0);
 ```
 
-Beside the synchronous (i.e. blocking until the operation is done) versions of `get()` and `put(value)` there are also asynchronous calls. They are named `getAsync()` and `putAsync(value)`. Both functions immediately return with a handle for the operation, i.e. a so called Future. The Future can be used to wait at any location in the script to wait for the completion of the operation and retrieve the final value of the channel.
+Beside the synchronous (i.e. blocking until the operation is done) versions of `get()` and `put(value)` there are also asynchronous calls. They are named `getAsync()` and `putAsync(value)`. Both functions immediately return with a handle for the operation, i.e. a so called Future. This Future can be used to wait at any location in the script for the completion of the operation and retrieve the final value of the channel.
 
 Example asynchronous get:
 
@@ -205,16 +206,16 @@ channel.close();
 Examples can be found in the [examples](examples) folder within this repository.
 
 # Feedback
-We very much appreciate your feedback! Please drop an [issue](issues) for any bug or improvement you see for this library!
+We very much appreciate your feedback! Please drop an [issue](../../issues) for any bug or improvement you see for this library!
 
 # Development
 This package is currently based on the [jcae](https://github.com/paulscherrerinstitute/jcae/) library developed at PSI. Basically it is a repackaging of the library together with its dependencies.
 
-Currently building this package is only possible within PSI.
+Building this package is currently only possible within PSI.
 
 To build the package use:
 
 ```bash
 ./gradlew build
 ```
-__Note__: As soon as Matlab is based on an Java 8 SDK the backing library will be switched from [jcae](https://github.com/paulscherrerinstitute/jcae) to [ca](https://github.com/channelaccess/ca), which is a more modern and clean Java library for Channel Access.
+__Note__: As soon as Matlab is based on a Java 8 SDK the backing library will be switched from [jcae](https://github.com/paulscherrerinstitute/jcae) to [ca](https://github.com/channelaccess/ca), which is a more modern and a clean Java library for Channel Access.
