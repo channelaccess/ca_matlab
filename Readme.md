@@ -1,10 +1,9 @@
 # Overview
-The __ca_matlab__ package provides an easy to use Channel Access library for Matlab.
-This document describes how to use the package within Matlab.
+The __ca_matlab__ package provides an easy to use Channel Access library for Matlab. It is cross platform and runs on all major operating systems - Linux, Windows, Mac OS X.
 
 The latest release of this package can be downloaded [here](https://github.com/channelaccess/ca_matlab/releases).
 
-The *prerequisites* for this package is *Matlab2015a* or later. There are no other dependencies beside that (just include the Jar as described below).
+The *prerequisites* for this package is *Matlab2015a* or later. There are no other dependencies (just include the Jar as described below).
 
 
 # Configuration
