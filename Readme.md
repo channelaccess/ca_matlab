@@ -10,7 +10,7 @@ The *prerequisites* for this package is *Matlab2015a* or later. There are no oth
 
 There are two options to use the library, a dynamic and a static one. With the dynamic option you will *bundle* the library with your Matlab code whereas with the static option you will set the library one time globally for your Matlab instance.
 
-We strongly suggest to use the dynamic approach!
+__We strongly suggest to use the dynamic approach!__
 
 ## Dynamic
 
@@ -207,7 +207,8 @@ Examples can be found in the [examples](examples) folder within this repository.
 # Feedback
 We very much appreciate your feedback! Please drop an [issue](../../issues) for any bug or improvement you see for this library!
 
-# Development
+
+# ca_matlab - Development
 This package is currently based on the [jcae](https://github.com/paulscherrerinstitute/jcae/) library developed at PSI. Basically it is a repackaging of the library together with its dependencies.
 
 Building this package is currently only possible within PSI.
