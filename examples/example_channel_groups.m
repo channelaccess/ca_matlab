@@ -16,7 +16,6 @@ properties.setProperty('EPICS_CA_SERVER_PORT', '5062');
 
 context = Context(properties);
 
-
 for x = {'','1','2'}
    prefix = strcat('ARIDI-PCT',x);
    display(prefix)
@@ -24,12 +23,9 @@ for x = {'','1','2'}
    channels.current.get()
 end
 
-
-
-
 % Explicitly call destructor
+% Theoretically it is not necessary to call the destructor explicitly as Matlab will call it once the
+% variable gets out of scope ...
 channels.delete()
-
-
 
 context.close();
