@@ -201,7 +201,7 @@ After you are done working with a channel close the channel via
 channel.close();
 ```
 
-## Examples
+# Examples
 Examples can be found in the [examples](examples) folder within this repository.
 
 # Feedback
