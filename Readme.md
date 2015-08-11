@@ -12,6 +12,8 @@ There are two options to use the library, a dynamic and a static one. With the d
 
 __We strongly suggest to use the dynamic approach!__
 
+Reasons why are somehow discussed [here](https://github.com/channelaccess/ca_matlab/issues/3).
+
 ## Dynamic
 
 To get started with the library:
@@ -204,9 +206,16 @@ channel.close();
 # Examples
 Examples can be found in the [examples](examples) folder within this repository.
 
-# Feedback
+# Issues / Feedback
 We very much appreciate your feedback! Please drop an [issue](../../issues) for any bug or improvement you see for this library!
 
+## Requesting Support
+In case of problems with your application:
+* Upgrade to latest version
+* Check whether the problem persists
+* If yes, open an issue
+  * Provide code snippet causing the problem
+  * Provide the library version used!
 
 # ca_matlab - Development
 This package is currently based on the [jcae](https://github.com/paulscherrerinstitute/jcae/) library developed at PSI. Basically it is a repackaging of the library together with its dependencies.
