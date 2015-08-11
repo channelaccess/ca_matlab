@@ -12,7 +12,7 @@ There are two options to use the library, a dynamic and a static one. With the d
 
 __We strongly suggest to use the dynamic approach!__
 
-Reasons why are somehow discussed [here](https://github.com/channelaccess/ca_matlab/issues/3).
+Reasons why are discussed [here](https://github.com/channelaccess/ca_matlab/issues/3).
 
 ## Dynamic
 
