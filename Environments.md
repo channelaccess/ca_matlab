@@ -1,6 +1,7 @@
 
-Use following configurations to be able to access certain epics networks:
+Use following configurations to be able to access certain PSI epics networks
 
+__Note:__ These are settings that need to be used if the Matlab application is running in the office network. There will only be read-only access possible as the epics gateway machines only grant read-only access to channels. If the Matlab application is running within the specific network, these settings are not needed and need to be disabled!
 
 * Environment - SwissFEL - _casf_
 
