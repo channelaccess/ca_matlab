@@ -180,8 +180,10 @@ future_2.get();
 To specify a timeout for the get/put operation following code can be used:
 
 ```matlab
-channel.getAsync().get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
-channel.putAsync(value).get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
+f = channel.getAsync();
+f.get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
+f = channel.putAsync(value);
+f.get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
 ```
 
 In both examples the operation would time out after 10 seconds. The function returns a `TimeoutException` if the operation times out.
@@ -194,7 +196,8 @@ Waiting for channels to reach a certain value can be done as follows:
 Channels.waitForValue(channel, 'world');
 
 // Wait with timeout
-Channels.waitForValueAsync(channel, 'world').get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
+f = Channels.waitForValueAsync(channel, 'world');
+f.get(java.lang.Long(10), java.util.concurrent.TimeUnit.SECONDS);
 ```
 
 If you want to do stuff while waiting you can implement a busy loop like this:
