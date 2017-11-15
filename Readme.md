@@ -100,6 +100,12 @@ Currently following properties are supported:
 __Note:__ For Paul Scherrer Institute users there is a list of example configurations for accessing the different facilities in [Environments.md](Environments.md).
 
 
+To set e.g. the EPICS_CA_ADDR_LIST to the same value as the environment variable of the machine running the script you can use:
+
+```matlab
+properties.setProperty('EPICS_CA_ADDR_LIST', getenv('EPICS_CA_ADDR_LIST'));
+```
+
 
 The context needs to be closed at the end of the application via
 
